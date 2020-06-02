@@ -2709,6 +2709,54 @@ let singleItemURL_JSON = {};
 
 
 
+                        let item_selled = $( '.vi-txt-underline' ).text();
+                        log( '#single item url - item_selled: ' + item_selled );
+                        if( item_selled ) singleItemURL_JSON.item_selled = entities.decode(item_selled).trim();
+
+
+
+
+
+
+
+
+
+
+                                    let shipping_cost = $( '#fshippingCost > span' ).text();
+                                    log( '#single item url - shipping_cost: ' + shipping_cost );
+                                    if( shipping_cost ) singleItemURL_JSON.shipping_cost = entities.decode(shipping_cost).trim();
+
+
+
+                                                let item_location = $( 'span[itemprop="availableAtOrFrom"]' ).text();
+                                                log( '#single item url - item_location: ' + item_location );
+                                                if( item_location ) singleItemURL_JSON.item_location = entities.decode(item_location).trim();
+
+
+
+
+                                                            let paymentmethod_paypal = $( '#payDet1' ).find('.vi-pv2-paypal').html();
+                                                            log( '#single item url - paymentmethod_paypal: ' + paymentmethod_paypal );
+                                                            if( paymentmethod_paypal ) singleItemURL_JSON.paymentmethod_paypal = true;
+
+
+
+                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' ).html();
+                              log( '#single item url - paymentmethod_direct_debit: ' + paymentmethod_direct_debit );
+                              if( paymentmethod_direct_debit ) singleItemURL_JSON.paymentmethod_direct_debit = true;
+
+
+
+                                          let paymentmethod_other = $( '#payDet1' ).find( '.vi-pv2-txtwrapper' ).text();
+                                          log( '#single item url - paymentmethod_other: ' + paymentmethod_other );
+                                          if( paymentmethod_other ) singleItemURL_JSON.paymentmethod_other = entities.decode(paymentmethod_other).trim();
+
+
+
+
+                                                      let ebay_buyerprotection = $( '#vi-ebp2-logo' ).html();
+                                                      log( '#single item url - ebay_buyerprotection: ' + ebay_buyerprotection );
+                                                      if( ebay_buyerprotection ) singleItemURL_JSON.ebay_buyerprotection = true;
 
 
 
@@ -2724,7 +2772,103 @@ let singleItemURL_JSON = {};
 
 
 
-             log( 'FINAL singleItemURL_JSON.data: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
+
+
+
+
+
+
+
+
+
+
+
+
+
+            let ebay_articleID = $( '.u-flL.iti-act-num.itm-num-txt' ).text();
+            log( '#single item url - ebay_articleID: ' + ebay_articleID );
+            if( ebay_articleID ) singleItemURL_JSON.ebay_articleID = entities.decode(ebay_articleID).trim();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        let checkforimages = $( '#vi_main_img_fs > ul > li' ).html();
+                        log( '#single item url - checkforimages: ' + checkforimages );
+                        if( checkforimages ){
+                        log( '#single item url - images was found..' );
+
+                                       let tmpAR = [];
+                                      $( '#vi_main_img_fs > ul > li' ).each(function(){
+
+                                                  let currentImage = $(this).find('img').attr('src').replace( 's-l64', 's-l9999' );
+                                                  log( '#single item url - currentImage: ' + currentImage );
+                                                  tmpAR.push(currentImage);
+
+                                       }) // $( '#vi_main_img_fs > ul > li' ).each(function(){
+                                      log( '#single item url - currentImage tmpAR: ' + tmpAR );
+
+                                      singleItemURL_JSON.imageURLS = tmpAR;
+
+                        } //   if( checkforimages ){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             log( 'FINAL singleItemURL_JSON: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
 
 
 
@@ -2761,11 +2905,6 @@ let singleItemURL_JSON = {};
             process.nextTick( exportData_singleItemURLS );
         } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
 
-
-          if ( e.toString().match( "TypeError: Cannot read property 'uploadFile' of null" ) ){
-              log( '#353 - TypeError: Cannot read property uploadFile of null was found we reload page..' );
-              process.nextTick( exportData_singleItemURLS );
-          } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
 
 
             if ( e.toString().match( 'Error: failed to find element matching selector "#titleTmplField_0"' ) ){
