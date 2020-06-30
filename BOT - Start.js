@@ -10,6 +10,13 @@
 ██                     ╚═╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝                      ██
 ██                                                                           ██
 ███████████████████████████████████████████████████████████████████████████████
+
+#SIGN-IN
+This Bot currently dont need any sign-i to ebay cause there is no bot protections for public users. All data is easy accesable.
+
+#IMPORTANT
+- currently dont resize the window via config.json - ebay used different classes for different windows sizes so we use hardcoded device size
+
 */
 
 
@@ -883,6 +890,55 @@ log( 'ENTER checkSocksSpeed()' );
 
 
 
+  async function getRedirectURL(tmpAR){
+  log( 'ENTER getRedirectURL()' );
+
+
+    let tmpARtwo = [];
+    if( tmpAR[0] ){
+
+
+
+  await Promise.all(
+        tmpAR.map(async d => {
+        log( 'Current array item we process: ' + d );
+
+          let pageTMP = await client.newPage();
+          await pageTMP.goto(d, {waitUntil: 'networkidle0', timeout: 35000});
+
+          let currenturl = pageTMP.url()
+          log( 'Final url after redirect: ' + currenturl );
+
+          pageTMP.close();
+          tmpARtwo.push(currenturl);
+
+        }) // tmpAR.map(async process => {
+  ); // await Promise.all(
+
+
+
+
+    } //    if( tmpAR[0] ){
+    log( '#redirect - for loop done.. tmpARtwo: ' + tmpARtwo );
+
+  return tmpARtwo;
+
+
+  } //  async function getRedirectURL(tmpAR){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1267,8 +1323,6 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
                                                            //executablePath: '/usr/bin/google-chrome',
                                                            //executablePath: '/home/t33n/Downloads/Linux_x64_749751_chrome-linux/chrome-linux/chrome',
                                                           // executablePath: '/home/t33n/Downloads/firefox-78.0a1.en-US.linux-x86_64/firefox/firefox',
-
-
                                                            headless: headlessVALUE, // true or false
                                                            userDataDir: '../../../../../lib/browserProfiles/' + config_browser_profile,
                                                            args: [
@@ -1351,6 +1405,7 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
                                                          page = await client.newPage();
                                                          await page.waitFor(5000);
                                                          await page.bringToFront();
+                                                         await page.setViewport({width:windowWidth, height:windowHeight});
                                                          log( 'Browser should be started now..' );
 
 
@@ -2782,9 +2837,6 @@ let singleItemURL_JSON = {};
 
 
 
-
-
-
             let ebay_articleID = $( '.u-flL.iti-act-num.itm-num-txt' ).text();
             log( '#single item url - ebay_articleID: ' + ebay_articleID );
             if( ebay_articleID ) singleItemURL_JSON.ebay_articleID = entities.decode(ebay_articleID).trim();
@@ -2858,6 +2910,24 @@ let singleItemURL_JSON = {};
 
 
 
+                          // mfe-card-group
+                          let checkforadditionalBoxes = $( '.mfe-card-group' ).html();
+                          //log( '#single item url - checkforadditionalBoxes: ' + checkforadditionalBoxes );
+                          if( checkforadditionalBoxes ){
+                          log( '#single item url - additionalBoxes was found..' );
+
+
+                                       let tmpAR = [];
+                                       // buyers also looked at those articels
+                                      $( '.mfe-reco-flat-cell.mfe-reco-flat-cell-left.image-96px > a' ).each(function(){
+
+                                           let itemURL = $(this).attr('href');
+                                           tmpAR.push( itemURL );
+                                           log( 'Buyers also looked at itemURL:' + itemURL );
+
+                                      }) //  $( '.mfe-card-group' ).each(function(){
+                                      log( 'Buyers also looked at - LOOP DONE' );
+                                      singleItemURL_JSON.buyersAlsoLooked = tmpAR;
 
 
 
@@ -2868,7 +2938,76 @@ let singleItemURL_JSON = {};
 
 
 
-             log( 'FINAL singleItemURL_JSON: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
+
+
+                                      tmpAR = [];
+                                     // Other articels from this customer
+
+                                    $( '.mfe-reco-link' ).each( async function(){
+
+                                         let itemURL = $(this).attr('href');
+                                         if( itemURL.match('pulsar.ebay') ) {
+                                              log( 'pulsar.ebay found..  itemURL: ' +  itemURL );
+                                               tmpAR.push(itemURL);
+                                         } //      if( itemURL.match('pulsar.ebay') ) {
+
+
+                                    }) //  $( '.mfe-card-group' ).each(function(){
+                                    log( '#422 - foreach loop .mfe-reco-link SUCCESSFULLY' );
+
+
+
+//lenalena
+
+                                    singleItemURL_JSON.SellerOtherItems = await getRedirectURL(tmpAR);
+                                    log( 'Seller other items - LOOP DONE' );
+
+
+                      } //   if( checkforadditionalBoxes ){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          log( 'aa - FINAL singleItemURL_JSON: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2916,14 +3055,6 @@ let singleItemURL_JSON = {};
 
 
   } // function error3(){
-
-
-
-
-
-
-
-
 
 
 
