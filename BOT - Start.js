@@ -172,6 +172,11 @@ const fs = require('fs'),
 
 
 
+                  //############## ebay related scrap ##################################
+                  ebay_additionalBoxes = json_config.ebay_additionalBoxes,
+
+
+
          //############### TIMEOUTS - START #####################################
           configOBJECT.waiter = Number(json_config.pause2);
           log('#11 - configOBJECT.waiter: ' + configOBJECT.waiter);
@@ -890,6 +895,27 @@ log( 'ENTER checkSocksSpeed()' );
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   async function getRedirectURL(tmpAR){
   log( 'ENTER getRedirectURL()' );
 
@@ -904,9 +930,13 @@ log( 'ENTER checkSocksSpeed()' );
         log( 'Current array item we process: ' + d );
 
           let pageTMP = await client.newPage();
-          await pageTMP.goto(d, {waitUntil: 'networkidle0', timeout: 35000});
+          await pageTMP.goto(d, {waitUntil: 'load', timeout: 35000});
 
           let currenturl = pageTMP.url()
+          if( currenturl.match( /\?\_trkparms\=/gmi ) ){
+                  currenturl = currenturl.split( /\?\_trkparms\=/gmi );
+                  currenturl = currenturl[0];
+          } // if( currenturl.match( /\?\_trkparms\=/gmi ) ){
           log( 'Final url after redirect: ' + currenturl );
 
           pageTMP.close();
@@ -921,6 +951,7 @@ log( 'ENTER checkSocksSpeed()' );
     } //    if( tmpAR[0] ){
     log( '#redirect - for loop done.. tmpARtwo: ' + tmpARtwo );
 
+  await page.bringToFront();
   return tmpARtwo;
 
 
@@ -1460,7 +1491,7 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
                                                         log('Error while try to start browser - error :' + JSON.stringify( e, null, 4) )
 
                                                         if ( e.length == undefined ) {
-                                                          log( 'e.length == 0' );
+                                                          log( 'e.length == 0 --- You maybe started your Bot while chromium windows with this current Browser Profile is still open..' );
                                                           //process.nextTick(checkSocksSpeed);
                                                         }
 
@@ -2697,6 +2728,12 @@ let singleItemURL_JSON = {};
 
 
 
+            let viewsday = $( '.vi-notify-new-bg-dBtm > span' ).text();
+            log( '#single item url - viewsday: ' + viewsday );
+            if( viewsday ) singleItemURL_JSON.viewsday = entities.decode(viewsday).trim();
+
+
+
 
 
 
@@ -2782,6 +2819,19 @@ let singleItemURL_JSON = {};
                                     if( shipping_cost ) singleItemURL_JSON.shipping_cost = entities.decode(shipping_cost).trim();
 
 
+                                    let shiptolocation = $( 'span[itemprop="areaServed"]' ).text();
+                                    log( '#single item url - shiptolocation: ' + shiptolocation );
+                                    if( shiptolocation ) singleItemURL_JSON.shiptolocation = entities.decode(shiptolocation).trim();
+
+
+                                    let delivertime = $( '#delSummary > div.sh-del-frst  > .sh-inline-div' ).text();
+                                    log( '#single item url - delivertime: ' + delivertime );
+                                    if( delivertime ) singleItemURL_JSON.delivertime = entities.decode(delivertime).trim();
+
+
+
+
+
 
                                                 let item_location = $( 'span[itemprop="availableAtOrFrom"]' ).text();
                                                 log( '#single item url - item_location: ' + item_location );
@@ -2790,13 +2840,19 @@ let singleItemURL_JSON = {};
 
 
 
-                                                            let paymentmethod_paypal = $( '#payDet1' ).find('.vi-pv2-paypal').html();
+
+
+
+
+
+
+                                                            let paymentmethod_paypal = $( '#payDet1' ).find( '.vi-pv2-paypal' );
                                                             log( '#single item url - paymentmethod_paypal: ' + paymentmethod_paypal );
                                                             if( paymentmethod_paypal ) singleItemURL_JSON.paymentmethod_paypal = true;
 
 
 
-                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' ).html();
+                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' );
                               log( '#single item url - paymentmethod_direct_debit: ' + paymentmethod_direct_debit );
                               if( paymentmethod_direct_debit ) singleItemURL_JSON.paymentmethod_direct_debit = true;
 
@@ -2809,7 +2865,7 @@ let singleItemURL_JSON = {};
 
 
 
-                                                      let ebay_buyerprotection = $( '#vi-ebp2-logo' ).html();
+                                                      let ebay_buyerprotection = $( '#vi-ebp2-logo' );
                                                       log( '#single item url - ebay_buyerprotection: ' + ebay_buyerprotection );
                                                       if( ebay_buyerprotection ) singleItemURL_JSON.ebay_buyerprotection = true;
 
@@ -2851,6 +2907,9 @@ let singleItemURL_JSON = {};
 
 
 
+                        let descriptioniframe_url = $( '#desc_ifr' ).attr('src');
+                        log( '#single item url - descriptioniframe_url: ' + descriptioniframe_url );
+                        if( descriptioniframe_url ) singleItemURL_JSON.descriptioniframe_url = entities.decode(descriptioniframe_url).trim();
 
 
 
@@ -2864,7 +2923,9 @@ let singleItemURL_JSON = {};
 
 
 
-                        let checkforimages = $( '#vi_main_img_fs > ul > li' ).html();
+
+
+                        let checkforimages = $( '#vi_main_img_fs > ul > li' );
                         log( '#single item url - checkforimages: ' + checkforimages );
                         if( checkforimages ){
                         log( '#single item url - images was found..' );
@@ -2910,19 +2971,113 @@ let singleItemURL_JSON = {};
 
 
 
+
+
+
+                          // description table
+                         $('.itemAttr').find( 'table > tbody > tr > td' ).each(function(){
+
+                              let columnName = $(this).attr('class');
+                              if( columnName == 'attrLabels' ){
+
+                                    let columnNameValue = $(this).text();
+                                    log( 'columnNameValue: ' + columnNameValue );
+                                    if( columnNameValue ) singleItemURL_JSON[  entities.decode(columnNameValue).replace( /[\n\t]/gmi, ' ' ).replace( /\s\s+/gmi, ' ' ).trim()  ]       =       entities.decode(   $(this).next().text()   ).replace( /[\n\t]/gmi, ' ' ).replace( /\s\s+/gmi, ' ' ).trim();
+
+                              } // if( columnName == 'attrLabels' ){
+
+
+
+                         }) //  $( '.mfe-card-group' ).each(function(){
+                         log( 'description table - LOOP DONE' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                           // mfe-card-group
-                          let checkforadditionalBoxes = $( '.mfe-card-group' ).html();
+                          let checkforadditionalBoxes = $( '.mfe-card-group' )
                           //log( '#single item url - checkforadditionalBoxes: ' + checkforadditionalBoxes );
-                          if( checkforadditionalBoxes ){
+                          log( 'ebay_additionalBoxes: ' + ebay_additionalBoxes );
+                          if( checkforadditionalBoxes && ebay_additionalBoxes == true ){
                           log( '#single item url - additionalBoxes was found..' );
 
 
                                        let tmpAR = [];
                                        // buyers also looked at those articels
-                                      $( '.mfe-reco-flat-cell.mfe-reco-flat-cell-left.image-96px > a' ).each(function(){
+                                      $('#CenterPanel').find( '.mfe-reco-flat-cell.mfe-reco-flat-cell-left.image-96px > a' ).each(function(){
 
                                            let itemURL = $(this).attr('href');
-                                           tmpAR.push( itemURL );
+
+                                           if( itemURL.match( /\?\_trkparms\=/gmi ) ){
+                                                   itemURL = itemURL.split( /\?\_trkparms\=/gmi );
+                                                   itemURL = itemURL[0];
+                                           } // if( currenturl.match( /\?\_trkparms\=/gmi ) ){
+
+                                              tmpAR.push( itemURL );
+
                                            log( 'Buyers also looked at itemURL:' + itemURL );
 
                                       }) //  $( '.mfe-card-group' ).each(function(){
@@ -2940,10 +3095,80 @@ let singleItemURL_JSON = {};
 
 
 
-                                      tmpAR = [];
-                                     // Other articels from this customer
 
-                                    $( '.mfe-reco-link' ).each( async function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                             tmpAR = [];
+                                                                             // buyers also looked at those articels
+                                                                            $('#FootPanelInnr').find( '.mfe-reco-flat-cell.mfe-reco-flat-cell-left.image-96px > a' ).each(function(){
+
+                                                                                 let itemURL = $(this).attr('href');
+
+                                                                                 if( itemURL.match( /\?\_trkparms\=/gmi ) ){
+                                                                                         itemURL = itemURL.split( /\?\_trkparms\=/gmi );
+                                                                                         itemURL = itemURL[0];
+                                                                                 } // if( currenturl.match( /\?\_trkparms\=/gmi ) ){
+
+                                                                                    tmpAR.push( itemURL );
+
+                                                                                 log( 'Buyers also looked at itemURL:' + itemURL );
+
+                                                                            }) //  $( '.mfe-card-group' ).each(function(){
+                                                                            log( 'Buyers also looked at - LOOP DONE' );
+                                                                            singleItemURL_JSON.buyersAlsoLooked = tmpAR;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      tmpAR = [];
+
+                                     // Other articels from th'is customer directly under image
+                                    $( '#BottomPanel' ).find('.mfe-reco-link').each(function(){
 
                                          let itemURL = $(this).attr('href');
                                          if( itemURL.match('pulsar.ebay') ) {
@@ -2954,10 +3179,6 @@ let singleItemURL_JSON = {};
 
                                     }) //  $( '.mfe-card-group' ).each(function(){
                                     log( '#422 - foreach loop .mfe-reco-link SUCCESSFULLY' );
-
-
-
-//lenalena
 
                                     singleItemURL_JSON.SellerOtherItems = await getRedirectURL(tmpAR);
                                     log( 'Seller other items - LOOP DONE' );
