@@ -251,7 +251,7 @@ const fs = require('fs'),
 
 
                                                            log( '\n\nWe will check now your headless value..headlessVALUE: ' + headlessVALUE );
-                                                           if(headlessVALUE == true) {
+                                                           if( headlessVALUE ) {
                                                            log('\n\nYou enabled headless..\n\n');
 
                                                                 disableGPU = '--disable-gpu';
@@ -262,7 +262,7 @@ const fs = require('fs'),
 
                                                                 disableGPU = '--disable-popup-blocking';
 
-                                                          } // else from if(headless == true) {
+                                                          } // else from if( headless ) {
 
                                                             /*
                                                             ████████████████████████████████████████████████████████████████████████████████
@@ -390,11 +390,11 @@ const fs = require('fs'),
            let obj = proxylistARRAY_nordvpn[Math.floor(Math.random()*proxylistARRAY_nordvpn.length)];
            log( 'NordVPN SOCKS - Current SOCKS Informations: ' + JSON.stringify(obj, null, 4) );
 
-           if( obj.features.socks == false ){
+           if( !obj.features.socks ){
            log( 'NordVPN SOCKS - Current server does not support SOCKS.. we choose a new SOCKS now!' );
              process.nextTick( randomSOCKSlist_nordvpn );
              return;
-           } // if( obj.features.SOCKS == false ){
+           } // if( !obj.features.SOCKS ){
 
 
            let proxy = 'socks5://' + vpn_username + ':' + vpn_password + '@' + obj.domain + ':1080'
@@ -421,11 +421,11 @@ const fs = require('fs'),
            let obj = proxylistARRAY_nordvpn[Math.floor(Math.random()*proxylistARRAY_nordvpn.length)];
            log( 'NordVPN PROXY - Current Proxy Informations: ' + JSON.stringify(obj, null, 4) );
 
-           if( obj.features.proxy_ssl == false && obj.features.proxy == false ){
+           if( !obj.features.proxy_ssl && !obj.features.proxy ){
            log( 'NordVPN SOCKS - Current server does not support PROXY.. we choose a new PROXY now!' );
              process.nextTick( randomproxylist_nordvpn );
              return;
-           } // if( obj.features.SOCKS == false ){
+           } //    if( !obj.features.proxy_ssl && !obj.features.proxy ){
 
 
            let proxy = 'https://' + vpn_username + ':' + vpn_password + '@' + obj.domain + ':89'
@@ -472,48 +472,36 @@ log( 'ENTER proxyorsocksChoosed()' );
 
 
 
-                                     //let proxy = 'socks5://192.186.154.202:1080'
-                                     //vpn_username = 'wpeejmlo-4'
-                                     //vpn_password = 'y2e001ppobvx'
-
-
-
-                                     // #current IP: 193.8.94.225
-                                     // current Country of IP: Israel (IL)
-                                     //proxy = 'socks5://wpeejmlo-dest:y2e001ppobvx@193.8.94.225:1080'
-
-
-
-         if( changeIP_NEWACC == true ){
-         log( 'changeIP_NEWACC == true - this means we will change now the ip and after create new acc..' );
+         if( changeIP_NEWACC ){
+         log( 'changeIP_NEWACC - this means we will change now the ip and after create new acc..' );
 
                     await useProxy(page, null);
                     await useProxy(page, proxy);
                     process.nextTick(checkSocksSpeed);
 
-          } // if( changeIP_NEWACC == true ){
+          } // if( changeIP_NEWACC ){
           else {
 
-                if ( changeIP == true ){
-                log( '#123123 - changeIP == true' );
+                if ( changeIP ){
+                log( '#123123 - changeIP' );
 
                   await useProxy(page, null);
                   await useProxy(page, proxy);
                   process.nextTick(checkSocksSpeed);
 
-                } // if ( changeIP == true ){
+                } // if ( changeIP ){
                 else {
-                  log( '#123123 - changeIP !== true' );
+                  log( '#123123 - !changeIP' );
 
 
                             await useProxy(page, null);
                             await useProxy(page, proxy);
                             process.nextTick(checkSocksSpeed);
 
-                } // else from if ( changeIP == true ){
+                } // else from if ( changeIP ){
 
 
-        } // else from if( changeIP_NEWACC == true ){
+        } // else from if( changeIP_NEWACC ){
 
 
 } // function proxyorsocksChoosed(){
@@ -648,21 +636,21 @@ log( 'ENTER checkSocksSpeed()' );
 
 
 
-          if( changeIP_NEWACC == true ){
+          if( changeIP_NEWACC ){
            changeIP_NEWACC = false;
            process.nextTick(createnewACC);
-           } // if( changeIP_NEWACC == true ){
+           } // if( changeIP_NEWACC ){
            else {
 
-             if( changeIP == true ){
-              log( '#234234 changeIP == true' );
+             if( changeIP ){
+              log( '#234234 changeIP' );
                changeIP = false;
                process.nextTick(scrapSingleItemURL);
-             } //  if( changeIP == true ){
+             } //  if( changeIP ){
              else process.nextTick(connectMongoDB);
 
 
-           } // else from if( changeIP_NEWACC == true ){
+           } // else from if( changeIP_NEWACC ){
 
 
 
@@ -1711,7 +1699,7 @@ process.nextTick( getimport );
 
           We will start now the single item link part of the script..`);
 
-          process.nextTick( singleItemAREA );
+          process.nextTick( getSingleItemURL );
 
 
         } // else from if( docs[0] ){
@@ -1897,7 +1885,7 @@ process.nextTick( getimport );
 
 
                          let paginationNumbOld = paginationNumb;
-                         paginationNumb = paginationNumb + 1; // + 1 BACKUP
+                         paginationNumb = paginationNumb++; // + 1 BACKUP
                          log('\npaginationNumbOld: ' + paginationNumbOld);
                          log('\npaginationNumb: ' + paginationNumb);
 
@@ -1926,8 +1914,6 @@ process.nextTick( getimport );
                                           log( '\nCURRENT URL #0: ' + urlEdit );
 
                          } // else from if ( matcher !== null ){
-
-
 
 
 
@@ -1981,6 +1967,9 @@ process.nextTick( getimport );
               return;
           }
           log( 'Successfully loaded: ' + t33n.url );
+
+
+
 
 
 
@@ -2080,15 +2069,15 @@ process.nextTick( getimport );
 
 
 
-                        if( firstRUN == true ) {
+                        if( firstRUN ) {
 
-                          log( 'firstRUN == true' );
+                          log( 'firstRUN' );
                           process.nextTick( createnewACC );
 
                         } //   if( firstRUN = true ) {
                         else {
 
-                          log( 'firstRUN == false' );
+                          log( '!firstRUN' );
                           if( enable_proxy_request == 'yes') process.nextTick(randomproxylist_nordvpn);
                           if( enable_socks_request == 'yes') process.nextTick(randomSOCKSlist_nordvpn);
 
@@ -2481,8 +2470,8 @@ https://www.ebay.de/itm/Bettgestell-Dunkelbraun-Massivholz-Kiefer-90-200-cm/1742
 
 
 
-function singleItemAREA(){
-log( 'singleItemAREA()' );
+function getSingleItemURL(){
+log( 'getSingleItemURL()' );
 
 
   var collection = MongoDB.collection('single_item_url');
@@ -2549,7 +2538,7 @@ log( 'singleItemAREA()' );
 
 
 
-} // function singleItemAREA(){
+} // function getSingleItemURL(){
 
 
 
@@ -2597,8 +2586,6 @@ log( 'exportData_singleItemURLS()' );
 
 
 t33n.layer = 2; // tells the bot at which layer we are for the hardware usage check
-
-
 
 
 
@@ -2656,7 +2643,6 @@ log( 'Successfully loaded single item url: ' + t33n.url );
 
 
 
-
 let css = await page.evaluate(() => document.querySelector('body').outerHTML);
 //log( 'upload status html:' + css );
 let $ = cheerio.load(css);
@@ -2691,9 +2677,16 @@ let singleItemURL_JSON = {};
 
 
 
+            singleItemURL_JSON.url = t33n.url_original;
+            log( '#single item url - url: ' + singleItemURL_JSON.url );
 
 
 
+
+            let auctionactive = $( '#w1-4-_msg' ).text();
+            log( '#single item url - auctionactive: ' + auctionactive );
+            if( auctionactive ) singleItemURL_JSON.auctionactive = entities.decode(auctionactive).replace( /\s\s+/gmi, ' ' ).trim();
+            else singleItemURL_JSON.auctionactive = true;
 
 
 
@@ -2709,7 +2702,7 @@ let singleItemURL_JSON = {};
 
             } // if(  $( '#itemTitle > span' ).text()  ) {
             log( '#single item url - title: ' + title );
-            if( title ) singleItemURL_JSON.title = entities.decode(title).trim();
+            if( title ) singleItemURL_JSON.title = entities.decode(title).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2721,7 +2714,7 @@ let singleItemURL_JSON = {};
 
             let price = $( '#prcIsum' ).text();
             log( '#single item url - price: ' + price );
-            if( price ) singleItemURL_JSON.price = entities.decode(price).trim();
+            if( price ) singleItemURL_JSON.price = entities.decode(price).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2730,7 +2723,7 @@ let singleItemURL_JSON = {};
 
             let viewsday = $( '.vi-notify-new-bg-dBtm > span' ).text();
             log( '#single item url - viewsday: ' + viewsday );
-            if( viewsday ) singleItemURL_JSON.viewsday = entities.decode(viewsday).trim();
+            if( viewsday ) singleItemURL_JSON.viewsday = entities.decode(viewsday).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2739,28 +2732,28 @@ let singleItemURL_JSON = {};
 
             let seller_name = $( '.bdg-90 > .mbg.vi-VR-margBtm3 > a > span' ).text();
             log( '#single item url - seller_name: ' + seller_name );
-            if( seller_name ) singleItemURL_JSON.seller_name = entities.decode(seller_name).trim();
+            if( seller_name ) singleItemURL_JSON.seller_name = entities.decode(seller_name).replace( /\s\s+/gmi, ' ' ).trim();
 
             let seller_url = $( '.bdg-90 > .mbg.vi-VR-margBtm3 > a' ).attr('href');
             log( '#single item url - seller_url: ' + seller_url );
-            if( seller_url ) singleItemURL_JSON.seller_url = entities.decode(seller_url).trim();
+            if( seller_url ) singleItemURL_JSON.seller_url = entities.decode(seller_url).replace( /\s\s+/gmi, ' ' ).trim();
 
             let seller_feedback_url = $( '.bdg-90 > .mbg.vi-VR-margBtm3 > .mbg-l > a' ).attr('href');
             log( '#single item url - seller_feedback_url: ' + seller_feedback_url );
-            if( seller_feedback_url ) singleItemURL_JSON.seller_feedback_url = entities.decode(seller_feedback_url).trim();
+            if( seller_feedback_url ) singleItemURL_JSON.seller_feedback_url = entities.decode(seller_feedback_url).replace( /\s\s+/gmi, ' ' ).trim();
 
             let seller_feedback_amount = $( '.bdg-90 > .mbg.vi-VR-margBtm3 > .mbg-l > a' ).text();
             log( '#single item url - seller_feedback_amount: ' + seller_feedback_amount );
-            if( seller_feedback_amount ) singleItemURL_JSON.seller_feedback_amount = entities.decode(seller_feedback_amount).trim();
+            if( seller_feedback_amount ) singleItemURL_JSON.seller_feedback_amount = entities.decode(seller_feedback_amount).replace( /\s\s+/gmi, ' ' ).trim();
 
             let seller_feedback_percent = $( '#si-fb' ).text();
             log( '#single item url - seller_feedback_percent: ' + seller_feedback_percent );
-            if( seller_feedback_percent ) singleItemURL_JSON.seller_feedback_percent = entities.decode(seller_feedback_percent).trim();
+            if( seller_feedback_percent ) singleItemURL_JSON.seller_feedback_percent = entities.decode(seller_feedback_percent).replace( /\s\s+/gmi, ' ' ).trim();
 
 
             let seller_status = $( '.si-pd-newFix' ).text();
             log( '#single item url - seller_status: ' + seller_status );
-            if( seller_status ) singleItemURL_JSON.seller_status = entities.decode(seller_status).trim();
+            if( seller_status ) singleItemURL_JSON.seller_status = entities.decode(seller_status).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2783,7 +2776,7 @@ let singleItemURL_JSON = {};
 
             let instock = $( '#qtySubTxt' ).text();
             log( '#single item url - instock: ' + instock );
-            if( instock ) singleItemURL_JSON.instock = entities.decode(instock).trim();
+            if( instock ) singleItemURL_JSON.instock = entities.decode(instock).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2803,7 +2796,7 @@ let singleItemURL_JSON = {};
 
                         let item_selled = $( '.vi-txt-underline' ).text();
                         log( '#single item url - item_selled: ' + item_selled );
-                        if( item_selled ) singleItemURL_JSON.item_selled = entities.decode(item_selled).trim();
+                        if( item_selled ) singleItemURL_JSON.item_selled = entities.decode(item_selled).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2816,17 +2809,17 @@ let singleItemURL_JSON = {};
 
                                     let shipping_cost = $( '#fshippingCost > span' ).text();
                                     log( '#single item url - shipping_cost: ' + shipping_cost );
-                                    if( shipping_cost ) singleItemURL_JSON.shipping_cost = entities.decode(shipping_cost).trim();
+                                    if( shipping_cost ) singleItemURL_JSON.shipping_cost = entities.decode(shipping_cost).replace( /\s\s+/gmi, ' ' ).trim();
 
 
                                     let shiptolocation = $( 'span[itemprop="areaServed"]' ).text();
                                     log( '#single item url - shiptolocation: ' + shiptolocation );
-                                    if( shiptolocation ) singleItemURL_JSON.shiptolocation = entities.decode(shiptolocation).trim();
+                                    if( shiptolocation ) singleItemURL_JSON.shiptolocation = entities.decode(shiptolocation).replace( /\s\s+/gmi, ' ' ).trim();
 
 
                                     let delivertime = $( '#delSummary > div.sh-del-frst  > .sh-inline-div' ).text();
                                     log( '#single item url - delivertime: ' + delivertime );
-                                    if( delivertime ) singleItemURL_JSON.delivertime = entities.decode(delivertime).trim();
+                                    if( delivertime ) singleItemURL_JSON.delivertime = entities.decode(delivertime).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2835,7 +2828,7 @@ let singleItemURL_JSON = {};
 
                                                 let item_location = $( 'span[itemprop="availableAtOrFrom"]' ).text();
                                                 log( '#single item url - item_location: ' + item_location );
-                                                if( item_location ) singleItemURL_JSON.item_location = entities.decode(item_location).trim();
+                                                if( item_location ) singleItemURL_JSON.item_location = entities.decode(item_location).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2860,7 +2853,7 @@ let singleItemURL_JSON = {};
 
                                           let paymentmethod_other = $( '#payDet1' ).find( '.vi-pv2-txtwrapper' ).text();
                                           log( '#single item url - paymentmethod_other: ' + paymentmethod_other );
-                                          if( paymentmethod_other ) singleItemURL_JSON.paymentmethod_other = entities.decode(paymentmethod_other).trim();
+                                          if( paymentmethod_other ) singleItemURL_JSON.paymentmethod_other = entities.decode(paymentmethod_other).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2895,7 +2888,7 @@ let singleItemURL_JSON = {};
 
             let ebay_articleID = $( '.u-flL.iti-act-num.itm-num-txt' ).text();
             log( '#single item url - ebay_articleID: ' + ebay_articleID );
-            if( ebay_articleID ) singleItemURL_JSON.ebay_articleID = entities.decode(ebay_articleID).trim();
+            if( ebay_articleID ) singleItemURL_JSON.ebay_articleID = entities.decode(ebay_articleID).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2909,7 +2902,7 @@ let singleItemURL_JSON = {};
 
                         let descriptioniframe_url = $( '#desc_ifr' ).attr('src');
                         log( '#single item url - descriptioniframe_url: ' + descriptioniframe_url );
-                        if( descriptioniframe_url ) singleItemURL_JSON.descriptioniframe_url = entities.decode(descriptioniframe_url).trim();
+                        if( descriptioniframe_url ) singleItemURL_JSON.descriptioniframe_url = entities.decode(descriptioniframe_url).replace( /\s\s+/gmi, ' ' ).trim();
 
 
 
@@ -2982,7 +2975,25 @@ let singleItemURL_JSON = {};
 
                                     let columnNameValue = $(this).text();
                                     log( 'columnNameValue: ' + columnNameValue );
-                                    if( columnNameValue ) singleItemURL_JSON[  entities.decode(columnNameValue).replace( /[\n\t]/gmi, ' ' ).replace( /\s\s+/gmi, ' ' ).trim()  ]       =       entities.decode(   $(this).next().text()   ).replace( /[\n\t]/gmi, ' ' ).replace( /\s\s+/gmi, ' ' ).trim();
+
+                                   columnNameValue =  'table_' + entities.decode(columnNameValue)
+                                                                                       .replace( /[\n\t]/gmi, '' )
+                                                                                       .replace( /[ ]/gmi, '' )
+                                                                                       .replace( /\s\s+/gmi, '' )
+                                                                                       .replace( /[^a-zA-Z0-9äüöÄÜÖ]/gmi, '' )
+                                                                                       .toLowerCase().trim();
+                                   log( 'columnNameValue after edit: ' + columnNameValue );
+
+
+
+
+                                   let columnText = entities.decode( $(this).next().text() )
+                                                                               .replace( /[\n\t]/gmi, ' ' )
+                                                                               .replace( /\s\s+/gmi, ' ' )
+                                                                               .trim();
+                                    log( 'columnText after edit: ' + columnText );
+
+                                    if( columnNameValue ) singleItemURL_JSON[columnNameValue] = columnText;
 
                               } // if( columnName == 'attrLabels' ){
 
@@ -3061,7 +3072,7 @@ let singleItemURL_JSON = {};
                           let checkforadditionalBoxes = $( '.mfe-card-group' )
                           //log( '#single item url - checkforadditionalBoxes: ' + checkforadditionalBoxes );
                           log( 'ebay_additionalBoxes: ' + ebay_additionalBoxes );
-                          if( checkforadditionalBoxes && ebay_additionalBoxes == true ){
+                          if( checkforadditionalBoxes && ebay_additionalBoxes ){
                           log( '#single item url - additionalBoxes was found..' );
 
 
@@ -3199,8 +3210,9 @@ let singleItemURL_JSON = {};
 
 
 
-                          log( 'aa - FINAL singleItemURL_JSON: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
+                          log( 'FINAL singleItemURL_JSON: ' + JSON.stringify(singleItemURL_JSON, null, 4) );
 
+                          MongoDB_EXPORT_single_item_url_scrappedData(singleItemURL_JSON);
 
 
 
@@ -3442,8 +3454,8 @@ log('createnewACC()');
 
 
 
-if( firstRUN == false ) {
-log( '#2 - firstRUN == false' );
+if( !firstRUN ) {
+log( '#2 - !firstRUN' );
 
 
     log( 'We delete now all cookies..' );
@@ -4062,7 +4074,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
                     scrappedSingleItemURLs_AR = [];
                     log( '!tempAR2[0]' );
-                    if ( scrapSingleItemURL_active == false ) process.nextTick( markimportasued );
+                    if ( !scrapSingleItemURL_active ) process.nextTick( markimportasued );
                     else process.nextTick( scrapSingleItemURL );
 
              } //  if(!tempAR2[0] ){
@@ -4128,7 +4140,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
       scrappedSingleItemURLs_AR = [];
       log( 'Inserted documents into the collection..' );
-      if ( scrapSingleItemURL_active == false ) process.nextTick( markimportasued );
+      if ( !scrapSingleItemURL_active ) process.nextTick( markimportasued );
       else process.nextTick( scrapSingleItemURL );
 
     }); // collection.insertMany(tempAR, function(e, result) {
@@ -4149,6 +4161,221 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
     } // function MongoDB_EXPORT_single_item_url(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function MongoDB_EXPORT_single_item_url_scrappedData(json){
+        log( 'ENTER MongoDB_EXPORT_single_item_url_main_ENTER()' );
+
+        var collection = MongoDB.collection('export');
+
+
+
+
+
+
+    // CHECK IF ENTRY ALREADY EXIST IN DATABASE
+    collection.find( {"url": json.url} ).toArray(function(e, docs) {
+    log( '#90cc0 done..docs:' + JSON.stringify(docs, null, 4) );
+
+
+            if(!docs[0]){
+              log( '#2f44r4 - MongoDB - Search value was not found..' );
+
+
+                         // Insert some documents
+                         collection.insert(json, function(e, result) {
+                         if (e) {
+                           //assert.equal(e, null);
+                           log( chalk.red.bold('❌ ERROR') + '#23yyf4 - There was an error while write data to MongoDB.. Error:\n' + chalk.white.bold(e) );
+                           return;
+                         } // if (e) {
+
+
+                                 log( '#5235 - Inserted documents into the collection..' );
+                                 process.nextTick( markSingleItemURLasued );
+
+
+                         }); // collection.insertMany(tempAR, function(e, result) {
+
+
+
+
+             } //   if(!docs[0]){
+            else{
+
+                 log( '#355 - It seems that we already scrapped this item.. We will skip the export now..' );
+                 process.nextTick( markSingleItemURLasued );
+
+            } // else from  if(!docs[0]){
+
+
+
+    }); //collection.find( {"url": json.url} ).toArray(function(e, docs) {
+
+
+
+
+
+
+
+
+        } //   function MongoDB_EXPORT_single_item_url_scrappedData(json){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4519,7 +4746,7 @@ collection.updateOne(query, newvalues, function(e, res) {
                  log( '#4234 - t33n.layer: ' + t33n.layer );
 
                  if( t33n.layer == 1 ) process.nextTick( getimport );
-                 if( t33n.layer == 2 ) process.nextTick( getsingle_item_url );
+                 if( t33n.layer == 2 ) process.nextTick( getSingleItemURL );
 
    } // else from       if( Number(info.freeMemPercentage) < 5 ){
 
