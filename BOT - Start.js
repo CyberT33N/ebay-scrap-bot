@@ -1885,7 +1885,7 @@ process.nextTick( getimport );
 
 
                          let paginationNumbOld = paginationNumb;
-                         paginationNumb = paginationNumb++; // + 1 BACKUP
+                         paginationNumb++; // + 1 BACKUP
                          log('\npaginationNumbOld: ' + paginationNumbOld);
                          log('\npaginationNumb: ' + paginationNumb);
 
