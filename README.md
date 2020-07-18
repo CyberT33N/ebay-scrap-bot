@@ -47,7 +47,7 @@ BOT - Start.sh
 
 
 # *Install*
-Run this script for creating your Database and **import** Collection at your MongoDB Server:
+Run this script for creating your **Database & import Collection** at your MongoDB Server:
 ```bash
 MongoDB - Import DB.bat / .sh
 ```
@@ -58,8 +58,8 @@ For default we use localhost MongoDB which is already set at your **./admin/conf
 
 <br />
 <br />
-Your import collection contains all search URLS like as example:<br />
-- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
+Your import collection contains all search URLS like as example:
+<br />- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
 
 
 <br />
