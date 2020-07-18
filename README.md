@@ -84,10 +84,6 @@ BOT - Start.bat / .sh
 <br />
 
 # Sample Export
-
-Download full file here or look below: <br />
-- https://drive.google.com/file/d/10lDQ99vdUT4Co8GrMOQULzY_zTwuSo2t/view?usp=sharing
-
 ```json
 [{
 	"_id": {
