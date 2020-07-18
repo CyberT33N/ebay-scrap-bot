@@ -59,7 +59,7 @@ For default we use localhost MongoDB which is already set at your config.json fi
 <br />
 <br />
 Your import collection contains the search URLS like as example:<br />
-https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
+- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
 
 
 <br />
