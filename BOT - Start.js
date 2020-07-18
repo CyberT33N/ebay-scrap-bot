@@ -83,6 +83,8 @@ var firstRUN = true;
 
 
 
+
+
 /*
 ████████████████████████████████████████████████████████████████████████████████
 .__                              __           .__               .__
@@ -2141,8 +2143,11 @@ https://www.ebay.de/itm/Bettgestell-Dunkelbraun-Massivholz-Kiefer-90-200-cm/1742
                                                    let checkPaginationNext = $( '.pagination__next' ).attr('aria-disabled');
                                                    log( 'checkPaginationNext: ' + checkPaginationNext );
 
+                                                   let paginationFound = $( '.s-pagination > span' ).html();
+                                                   log( 'paginationFound: ' + paginationFound );
 
-                                                  if (  checkPaginationNext == 'true' ){
+
+                                                  if (  checkPaginationNext == 'true' || !paginationFound ){
 
                                                                        scrapSingleItemURL_active = false;
                                                                        log('\n#0 It seems that this was the last page.. current page url: ' + t33n.url + '\n We will go now to the next import page..');
@@ -2839,13 +2844,13 @@ let singleItemURL_JSON = {};
 
 
 
-                                                            let paymentmethod_paypal = $( '#payDet1' ).find( '.vi-pv2-paypal' );
+                                                            let paymentmethod_paypal = $( '#payDet1' ).find( '.vi-pv2-paypal' ).html();
                                                             log( '#single item url - paymentmethod_paypal: ' + paymentmethod_paypal );
                                                             if( paymentmethod_paypal ) singleItemURL_JSON.paymentmethod_paypal = true;
 
 
 
-                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' );
+                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' ).html();
                               log( '#single item url - paymentmethod_direct_debit: ' + paymentmethod_direct_debit );
                               if( paymentmethod_direct_debit ) singleItemURL_JSON.paymentmethod_direct_debit = true;
 
@@ -2858,7 +2863,7 @@ let singleItemURL_JSON = {};
 
 
 
-                                                      let ebay_buyerprotection = $( '#vi-ebp2-logo' );
+                                                      let ebay_buyerprotection = $( '#vi-ebp2-logo' ).html();
                                                       log( '#single item url - ebay_buyerprotection: ' + ebay_buyerprotection );
                                                       if( ebay_buyerprotection ) singleItemURL_JSON.ebay_buyerprotection = true;
 
@@ -2918,7 +2923,7 @@ let singleItemURL_JSON = {};
 
 
 
-                        let checkforimages = $( '#vi_main_img_fs > ul > li' );
+                        let checkforimages = $( '#vi_main_img_fs > ul > li' ).html();
                         log( '#single item url - checkforimages: ' + checkforimages );
                         if( checkforimages ){
                         log( '#single item url - images was found..' );
@@ -3069,7 +3074,7 @@ let singleItemURL_JSON = {};
 
 
                           // mfe-card-group
-                          let checkforadditionalBoxes = $( '.mfe-card-group' )
+                          let checkforadditionalBoxes = $( '.mfe-card-group' ).html();
                           //log( '#single item url - checkforadditionalBoxes: ' + checkforadditionalBoxes );
                           log( 'ebay_additionalBoxes: ' + ebay_additionalBoxes );
                           if( checkforadditionalBoxes && ebay_additionalBoxes ){
