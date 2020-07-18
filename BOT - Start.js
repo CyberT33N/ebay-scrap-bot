@@ -2844,13 +2844,13 @@ let singleItemURL_JSON = {};
 
 
 
-                                                            let paymentmethod_paypal = $( '#payDet1' ).find( '.vi-pv2-paypal' ).html();
+                                                            let paymentmethod_paypal = $( '#payDet1' ).find( '.vi-pv2-paypal' )
                                                             log( '#single item url - paymentmethod_paypal: ' + paymentmethod_paypal );
                                                             if( paymentmethod_paypal ) singleItemURL_JSON.paymentmethod_paypal = true;
 
 
 
-                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' ).html();
+                              let paymentmethod_direct_debit = $( '#payDet1' ).find( '.vi-pv2-payment_method_direct_debit' )
                               log( '#single item url - paymentmethod_direct_debit: ' + paymentmethod_direct_debit );
                               if( paymentmethod_direct_debit ) singleItemURL_JSON.paymentmethod_direct_debit = true;
 
