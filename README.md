@@ -10,6 +10,8 @@ Bot Protection: **False**
 <br />
 Sign-in required: **False**
 <br />
+Language: **Multilanguage (currently only tested for EN and DE)**
+<br />
 [CyberT33N Scrap Bot - Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer)
 
 
