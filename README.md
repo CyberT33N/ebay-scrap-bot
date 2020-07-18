@@ -9,8 +9,7 @@ Webdriver: Puppeteer
 Bot Protection: False
 <br />
 Sign-in required: False
-
-<br /><br />
+<br />
 CyberT33N Scrap Bot - Core Engine: https://github.com/CyberT33N/scrapcore-mongodb-puppeteer
 
 
@@ -28,14 +27,12 @@ CyberT33N Scrap Bot - Core Engine: https://github.com/CyberT33N/scrapcore-mongod
 # Dependencies
 
 In order to run this bot you must download the CyberT33n Core Engine (https://github.com/CyberT33N/scrapcore-mongodb-puppeteer). It will contain all needed dependencies and useful scripts for easy usage of this Bot!
-
-
-
 <br />
 <br />
 After you have downloaded the CyberT33n Core Engine, download all files from this repository and insert them with folders inside of the root directory of your CyberT33n Core Engine where you can find:
-- BOT - Start.sh
-
+```bash
+BOT - Start.sh
+```
 
 <br />
 <br />
@@ -51,8 +48,9 @@ After you have downloaded the CyberT33n Core Engine, download all files from thi
 
 # Install
 Run this file for creating your Database and import Collection at MongoDB:
-- MongoDB - Import DB.bat / .sh
-
+```bash
+MongoDB - Import DB.bat / .sh
+```
 
 <br />
 <br />
@@ -61,8 +59,9 @@ For default we use localhost MongoDB which is already set at your config.json fi
 <br />
 <br />
 Your import collection contains the search URLS like as example:
-- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
-
+```bash
+https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
+```
 
 <br />
 <br />
@@ -70,7 +69,9 @@ Import any search URLS you want to your import collection and make sure they fla
 
 
 <br /><br />That´s it! Now run your bot with:
-- BOT - Start.bat / .sh
+```bash
+BOT - Start.bat / .sh
+```
 
 <br />
 <br />
