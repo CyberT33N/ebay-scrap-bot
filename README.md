@@ -2,15 +2,15 @@
 This bot scraps all items of any search link by visiting all pages and exporting all item URLS. After this it will open each item URL and scrap the needed informations. 
 <br />
 <br />
-Database: MongoDB
+Database: **MongoDB**
 <br />
-Webdriver: Puppeteer
+Webdriver: **Puppeteer**
 <br />
-Bot Protection: False
+Bot Protection: **False**
 <br />
-Sign-in required: False
+Sign-in required: **False**
 <br />
-CyberT33N Scrap Bot - Core Engine: https://github.com/CyberT33N/scrapcore-mongodb-puppeteer
+[CyberT33N Scrap Bot - Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer)
 
 
 <br />
@@ -24,12 +24,12 @@ CyberT33N Scrap Bot - Core Engine: https://github.com/CyberT33N/scrapcore-mongod
 <br />
 <br />
 
-# Dependencies
+# *Dependencies*
 
-In order to run this bot you must download the CyberT33n Core Engine (https://github.com/CyberT33N/scrapcore-mongodb-puppeteer). It will contain all needed dependencies and useful scripts for easy usage of this Bot!
+In order to run this bot you must download the **[CyberT33n Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer)**. It will contain all needed dependencies and useful scripts for easy usage of this Bot!
 <br />
 <br />
-After you have downloaded the CyberT33n Core Engine, download all files from this repository and insert them with folders inside of the root directory of your CyberT33n Core Engine where you can find:
+After you have downloaded the CyberT33n Core Engine, download all files from this repository and **insert them with folders inside of the root directory** of your CyberT33n Core Engine where you can find:
 ```bash
 BOT - Start.sh
 ```
@@ -46,25 +46,25 @@ BOT - Start.sh
 <br />
 
 
-# Install
-Run this file for creating your Database and import Collection at your MongoDB Server:
+# *Install*
+Run this script for creating your Database and **import** Collection at your MongoDB Server:
 ```bash
 MongoDB - Import DB.bat / .sh
 ```
 
 <br />
 <br />
-For default we use localhost MongoDB which is already set at your config.json file. So you don´t have to change anything in this case.
+For default we use localhost MongoDB which is already set at your **./admin/config.json** file. So you don´t have to change anything in this case.
 
 <br />
 <br />
-Your import collection contains the search URLS like as example:<br />
+Your import collection contains all search URLS like as example:<br />
 - https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
 
 
 <br />
 <br />
-Import any search URLS you want to your import collection and make sure they are flagged as used=0
+Import a list of search URLS to your import collection and make sure they are flagged as **used = 0**
 
 
 <br /><br />That´s it! Now run your bot with:
@@ -83,8 +83,8 @@ BOT - Start.bat / .sh
 <br />
 <br />
 
-# Sample Export
-```json
+# *Sample Export*
+```javascript
 [{
 	"_id": {
 		"$oid": "5f122d45cc6f126f8085da37"
