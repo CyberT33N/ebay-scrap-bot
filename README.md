@@ -52,18 +52,14 @@ Run this script for creating your **Database & import Collection** at your Mongo
 MongoDB - Import DB.bat / .sh
 ```
 
-<br />
-<br />
-For default we use localhost MongoDB which is already set at your **./admin/config.json** file. So you don´t have to change anything in this case.
+For default we use localhost MongoDB Server which is already set at your **config.json** file. So you don´t have to change anything in this case.
 
-<br />
-<br />
-Your import collection contains all search URLS like as example:
-<br />- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
 
-<br />
-<br />
-Import a list of search URLS to your import collection and make sure they are flagged as **used = 0**
+<br /><br />Your import collection contains all search URLS like as example:<br />
+- https://www.ebay.de/sch/i.html?_from=R40&_nkw=metall+bett&_sacat=0&LH_TitleDesc=0&Farbe=Schwarz&rt=nc&Liegefl%25C3%25A4che=Doppelbett&_dcat=175758
+
+
+<br /><br />Import a list of search URLS to your import collection and make sure they are flagged as **used=0**
 <br />That´s it! Now run your bot with:
 ```bash
 BOT - Start.bat / .sh
