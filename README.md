@@ -1,5 +1,5 @@
 # CyberT33N Ebay Scrap Bot
-This bot scraps all items of any search link by visiting all pages and exporting all item URLS. After this it will open each item URL and scrap the needed informations. 
+This bot scraps all items of any search link by visiting all pages and exporting all item links. After this it will open each item link and scrap the needed informations. 
 <br />
 <br />
 Database: **MongoDB**
