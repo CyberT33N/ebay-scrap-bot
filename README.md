@@ -18,9 +18,9 @@ Language: **Multilanguage (currently only tested for EN and DE)**
 <br />
 
 ![alt tag](https://i.imgur.com/UANKCkB.jpg)
-<br />
+<br /><br />
 ![alt tag](https://i.imgur.com/o7LRLpF.jpg)
-<br />
+<br /><br />
 ![alt tag](https://i.imgur.com/DVm28Jq.jpg)
 
 <br />
