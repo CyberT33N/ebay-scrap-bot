@@ -14,8 +14,12 @@ Language: **Multilanguage (currently only tested for EN and DE)**
 <br />
 [CyberT33N Scrap Bot - Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer)
 
+<br />
+<br />
 
-![alt tag](https://i.imgur.com/DBs8Y1o.jpg)
+![alt tag](https://i.imgur.com/UANKCkB.jpg)
+![alt tag](https://i.imgur.com/o7LRLpF.jpg)
+![alt tag](https://i.imgur.com/DVm28Jq.jpg)
 
  _____________________________________________________
  _____________________________________________________
