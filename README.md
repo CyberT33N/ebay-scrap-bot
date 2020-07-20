@@ -159,3 +159,17 @@ BOT - Start.bat / .sh
 	"table_abteilung": "Erwachsene"
 }]
 ```
+
+<br />
+<br />
+
+ _____________________________________________________
+ _____________________________________________________
+
+
+<br />
+<br />
+
+
+## License  
+MIT - Do what you ever you want with this code :) Greets CyberT33N
