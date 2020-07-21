@@ -212,6 +212,37 @@ const fs = require('fs'),
 
 
 
+          //############## extensions ##################################
+          var extensionlist = json_config.extensionlist,
+          extension1 = json_config.extension1,
+          extension2 = json_config.extension2,
+          extension3 = json_config.extension3,
+          extension4 = json_config.extension4,
+          extension5 = json_config.extension5,
+          extension6 = json_config.extension6,
+          extension7 = json_config.extension7,
+          extension8 = json_config.extension8,
+          extension9 = json_config.extension9,
+          extension10 = json_config.extension10,
+          extension11 = json_config.extension11;
+
+
+
+
+         if( extensionlist.length == 0 ) extensionlist = '--disable-popup-blocking';
+         if( extension1.length == 0 ) extension1 = '--disable-popup-blocking';
+         if( extension2.length == 0 ) extension2 = '--disable-popup-blocking';
+         if( extension3.length == 0 ) extension3 = '--disable-popup-blocking';
+         if( extension4.length == 0 ) extension4 = '--disable-popup-blocking';
+         if( extension5.length == 0 ) extension5 = '--disable-popup-blocking';
+         if( extension6.length == 0 ) extension6 = '--disable-popup-blocking';
+         if( extension7.length == 0 ) extension7 = '--disable-popup-blocking';
+         if( extension8.length == 0 ) extension8 = '--disable-popup-blocking';
+         if( extension9.length == 0 ) extension9 = '--disable-popup-blocking';
+         if( extension10.length == 0 ) extension10 = '--disable-popup-blocking';
+         if( extension11.length == 0 ) extension11 = '--disable-popup-blocking';
+
+
 
 
 
@@ -1374,20 +1405,18 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
 
 
 
-
-
-
-                                                         '--disable-extensions-except=../../../../../lib/chromeextension/webrtc_anti_leak_prevent/eiadekoaikejlgdbkbdfeijglgfdalml/1.0.14_0,../../../../../lib/chromeextension/ipfuck/bjgmbpodpcgmnpfjmigcckcjfldcicnd/1.3_0,../../../../../lib/chromeextension/script_safe/oiigbmnaadbkfbmpbfijlflahbdbdgdf/1.0.9.3_0,../../../../../lib/chromeextension/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj/3.0.7_0,../../../../../lib/chromeextension/policycontrol/eekommagmgepaafaaegimeldlnnnolgn/0.3.5_0,../../../../../lib/chromeextension/alertblocker/ofjjanaennfbgpccfpbghnmblpdblbef/1.3_0,../../../../../lib/chromeextension/letmeout/hnfdibcbmlppjlkefinedeffoiomlecc/1.3_0,../../../../../lib/chromeextension/showmyip/pdnildedfbigagjbaigbalnfdfpijhaf/1.2.1_0,../../../../../lib/chromeextension/violentmonkey/jinjaccalgkegednnccohejagnlnfdag/2.12.7_0,../../../../../lib/chromeextension/touchvpn/bihmplhobchoageeokmgbdihknkjbknd/3.1.5_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/webrtc_anti_leak_prevent/eiadekoaikejlgdbkbdfeijglgfdalml/1.0.14_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/ipfuck/bjgmbpodpcgmnpfjmigcckcjfldcicnd/1.3_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/script_safe/oiigbmnaadbkfbmpbfijlflahbdbdgdf/1.0.9.3_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj/3.0.7_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/policycontrol/eekommagmgepaafaaegimeldlnnnolgn/0.3.5_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/alertblocker/ofjjanaennfbgpccfpbghnmblpdblbef/1.3_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/letmeout/hnfdibcbmlppjlkefinedeffoiomlecc/1.3_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/showmyip/pdnildedfbigagjbaigbalnfdfpijhaf/1.2.1_0',
-                                                     '--load-extension=../../../../../lib/chromeextension/violentmonkey/jinjaccalgkegednnccohejagnlnfdag/2.12.7_0',
-                                                      '--load-extension=../../../../../lib/chromeextension/touchvpn/bihmplhobchoageeokmgbdihknkjbknd/3.1.5_0',
+                                                         extensionlist,
+                                                         extension1,
+                                                         extension2,
+                                                         extension3,
+                                                         extension4,
+                                                         extension5,
+                                                         extension6,
+                                                         extension7,
+                                                         extension8,
+                                                         extension9,
+                                                         extension10,
+                                                         extension11,
 
 
 
