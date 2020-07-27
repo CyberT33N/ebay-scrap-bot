@@ -209,6 +209,14 @@ const fs = require('fs'),
 
 
 
+          var browserProfilePath;
+          if( osPLATFORM == 'darwin' ) browserProfilePath = './lib/browserProfiles/';
+          if( osPLATFORM == 'linux' ) browserProfilePath = './lib/browserProfiles/';
+          if( osPLATFORM == 'win32' ) browserProfilePath = '../../../../../lib/browserProfiles/';
+          log( 'browserProfilePath: ' + browserProfilePath + '\nconfig_browser_profile: ' + config_browser_profile );
+
+
+
 
 
 
@@ -1376,7 +1384,7 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
                                                            //executablePath: '/home/t33n/Downloads/Linux_x64_749751_chrome-linux/chrome-linux/chrome',
                                                           // executablePath: '/home/t33n/Downloads/firefox-78.0a1.en-US.linux-x86_64/firefox/firefox',
                                                            headless: headlessVALUE, // true or false
-                                                           userDataDir: '../../../../../lib/browserProfiles/' + config_browser_profile,
+                                                           userDataDir: browserProfilePath + config_browser_profile,
                                                            args: [
                                                            windowSizeComplete,
 
