@@ -233,41 +233,6 @@ const fs = require('fs'),
 
 
 
-                                                           /*
-                                                           ████████████████████████████████████████████████████████████████████████████████
-                                                          */
-
-                                                           //############## GET HEADLESS VALUE ##################################
-
-                                                           const headlessVALUE = json_config.headless;
-
-
-                                                           var disableGPU;
-
-
-                                                           log( '\n\nWe will check now your headless value..headlessVALUE: ' + headlessVALUE );
-                                                           if( headlessVALUE ) {
-                                                           log('\n\nYou enabled headless..\n\n');
-
-                                                                disableGPU = '--disable-gpu';
-
-                                                           } //  if(headlessVALUE == 'yes') {
-                                                           else {
-                                                           log('\n\nYou disabled headless..\n\n');
-
-                                                                disableGPU = '--disable-popup-blocking';
-
-                                                          } // else from if( headless ) {
-
-                                                            /*
-                                                            ████████████████████████████████████████████████████████████████████████████████
-                                                            */
-
-
-
-
-
-
 
 
 
@@ -457,6 +422,48 @@ const fs = require('fs'),
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            /*
+                                                                                                                ████████████████████████████████████████████████████████████████████████████████
+                                                                                                               */
+
+                                                                                                                //############## GET HEADLESS VALUE ##################################
+
+                                                                                                                const headlessVALUE = json_config.headless;
+
+
+
+                                                                                                                log( '\n\nWe will check now your headless value..headlessVALUE: ' + headlessVALUE );
+                                                                                                                if(headlessVALUE == true) {
+
+                                                                                                                       log('\n\nYou enabled headless..\n\n');
+                                                                                                                       args.push('--disable-gpu');
+
+                                                                                                                } //  if(headlessVALUE == 'yes') {
+                                                                                                                else log('\n\nYou disabled headless..\n\n');
+
+
+                                                                                                                 /*
+                                                                                                                 ████████████████████████████████████████████████████████████████████████████████
+                                                                                                                 */
 
 
 
