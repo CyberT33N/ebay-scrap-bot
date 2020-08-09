@@ -209,52 +209,6 @@ const fs = require('fs'),
 
 
 
-          var browserProfilePath;
-          if( osPLATFORM == 'darwin' ) browserProfilePath = './lib/browserProfiles/';
-          if( osPLATFORM == 'linux' ) browserProfilePath = './lib/browserProfiles/';
-          if( osPLATFORM == 'win32' ) browserProfilePath = '../../../../../lib/browserProfiles/';
-          log( 'browserProfilePath: ' + browserProfilePath + '\nconfig_browser_profile: ' + config_browser_profile );
-
-
-
-
-
-
-          //############## extensions ##################################
-          var extensionlist = json_config.extensionlist,
-          extension1 = json_config.extension1,
-          extension2 = json_config.extension2,
-          extension3 = json_config.extension3,
-          extension4 = json_config.extension4,
-          extension5 = json_config.extension5,
-          extension6 = json_config.extension6,
-          extension7 = json_config.extension7,
-          extension8 = json_config.extension8,
-          extension9 = json_config.extension9,
-          extension10 = json_config.extension10,
-          extension11 = json_config.extension11;
-
-
-
-
-         if( extensionlist.length == 0 ) extensionlist = '--disable-popup-blocking';
-         if( extension1.length == 0 ) extension1 = '--disable-popup-blocking';
-         if( extension2.length == 0 ) extension2 = '--disable-popup-blocking';
-         if( extension3.length == 0 ) extension3 = '--disable-popup-blocking';
-         if( extension4.length == 0 ) extension4 = '--disable-popup-blocking';
-         if( extension5.length == 0 ) extension5 = '--disable-popup-blocking';
-         if( extension6.length == 0 ) extension6 = '--disable-popup-blocking';
-         if( extension7.length == 0 ) extension7 = '--disable-popup-blocking';
-         if( extension8.length == 0 ) extension8 = '--disable-popup-blocking';
-         if( extension9.length == 0 ) extension9 = '--disable-popup-blocking';
-         if( extension10.length == 0 ) extension10 = '--disable-popup-blocking';
-         if( extension11.length == 0 ) extension11 = '--disable-popup-blocking';
-
-
-
-
-
-
 
 
 
@@ -337,6 +291,176 @@ const fs = require('fs'),
 
 
          log( '\n\n\nWE USE THIS HOMEPATH: ' + osHOME + '\n\n' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                           var args = [
+                                                           windowSizeComplete,
+
+                                                           disableGPU,
+                                                           '--disable-flash-3d',
+                                                           '--no-sandbox',
+                                                           // '--disable-setuid-sandbox',
+
+                                                           '--disable-popup-blocking',
+                                                           '--disable-notifications',
+                                                           '--disable-dev-shm-usage',
+                                                           '--force-webrtc-ip-handling-policy=disable-non-proxied-udp',
+                                                           '--disable-flash-stage3d',
+                                                           '--disable-java',
+                                                           '--disable-internal-flash',
+                                                           '--disable-cache',
+                                                           '--disable-webgl', // webgl
+                                                           '--disable-3d-apis', // webgl
+                                                           //'--disable-extensions',
+                                                           '--disable-webgl-image-chromium',
+                                                           //'--disable-reading-from-canvas', // <-- youtube videos not playing with this enabled
+
+                                                           '--lang=en'
+
+                                                         ];
+
+
+
+
+
+
+
+                                  var browserProfilePath;
+                                  log( 'osPLATFORM: ' + osPLATFORM );
+                                  if( osPLATFORM == 'darwin' ) browserProfilePath = './lib/browserProfiles/';
+                                  if( osPLATFORM == 'linux' ) browserProfilePath = './lib/browserProfiles/';
+                                  if( osPLATFORM == 'win32' ) browserProfilePath = '../../../../../lib/browserProfiles/';
+                                  log( 'browserProfilePath: ' + browserProfilePath + '\nconfig_browser_profile: ' + config_browser_profile );
+
+
+                                  var chromeExtensionPath;
+                                  if( osPLATFORM == 'darwin' ) chromeExtensionPath = './lib/chromeextension/';
+                                  if( osPLATFORM == 'linux' ) chromeExtensionPath = './lib/chromeextension/';
+                                  if( osPLATFORM == 'win32' ) chromeExtensionPath = '../../../../../lib/chromeextension/';
+                                  log( 'chromeExtension Path: ' + chromeExtensionPath );
+
+
+
+
+                                            //############## extensions ##################################
+                                            var extensionlist = json_config.extensionlist;
+                                            //if( extensionlist.length !== 0 ) extensionlist = '--disable-extensions-except=' + chromeExtensionPath + extensionlist.split( ',' ).join( ',' + chromeExtensionPath );
+
+
+                                            if( extensionlist.length !== 0 ){
+
+                                                let extensionlistAR = [];
+                                                for( let d in extensionlist ){
+                                                       extensionlistAR.push( chromeExtensionPath + extensionlist[d] );
+                                                       args.push( '--load-extension=' + chromeExtensionPath + extensionlist[d] );
+                                                } // for( let d of extensionlist ){
+
+                                             extensionlist = '--disable-extensions-except=' + extensionlistAR.join( ',' );
+                                             args.push(extensionlist);
+
+                                            } //  if( extensionlist.length !== 0 ){
+
+
+                                            log( 'extensionlist: ' + extensionlist + '\n\nArgs: ' + args);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1385,76 +1509,7 @@ setTimeout(() => { process.nextTick(screenlooper) }, 1000);
                                                           // executablePath: '/home/t33n/Downloads/firefox-78.0a1.en-US.linux-x86_64/firefox/firefox',
                                                            headless: headlessVALUE, // true or false
                                                            userDataDir: browserProfilePath + config_browser_profile,
-                                                           args: [
-                                                           windowSizeComplete,
-
-                                                           //'--proxy-server=' + proxySERVER,
-
-                                                           //serbia
-                                                         //'--proxy-server=socks5://us3229.nordvpn.com:1080',
-                                                         //'--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE us3229.nordvpn.com"',
-
-                                                             //random proxy
-                                                          //  '--proxy-server=' + proxy,
-
-
-                                                            //random proxy
-                                                          // '--proxy-server=http://localhost:8000',
-
-                                                            //random proxy
-                                                          // '--proxy-server=https://' + vpn_username + ':' + vpn_password + '@us3229.nordvpn.com:89',
-
-
-                                                         //'--proxy-server=https://rs7.nordvpn.com:89',
-
-
-                                                         // vietnam
-                                                         //'--proxy-server=https://vn9.nordvpn.com:89',
-
-
-
-                                                         extensionlist,
-                                                         extension1,
-                                                         extension2,
-                                                         extension3,
-                                                         extension4,
-                                                         extension5,
-                                                         extension6,
-                                                         extension7,
-                                                         extension8,
-                                                         extension9,
-                                                         extension10,
-                                                         extension11,
-
-
-
-
-
-                                                           '--disable-flash-3d',
-
-
-
-                                                           // HEADLESS SCRAP ARGS
-                                                           disableGPU,
-                                                           //'--user-agent=' + randomUSERAGENT(),
-
-                                                           '--no-sandbox',
-                                                          // '--disable-setuid-sandbox',
-                                                           '--disable-popup-blocking',
-                                                           '--disable-notifications',
-                                                           '--disable-dev-shm-usage',
-                                                           '--force-webrtc-ip-handling-policy=disable-non-proxied-udp',
-
-                                                           '--disable-flash-stage3d',
-                                                           '--disable-java',
-                                                           '--disable-internal-flash',
-                                                           '--disable-cache',
-                                                           '--disable-webgl', // webgl
-                                                           '--disable-3d-apis', // webgl
-                                                           //'--disable-extensions',
-                                                           '--disable-webgl-image-chromium',
-                                                           '--disable-reading-from-canvas',
-                                                           '--lang=en']
+                                                           args: args
 
                                                          });
 
