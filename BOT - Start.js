@@ -384,6 +384,7 @@ const fs = require('fs'),
                                   if( osPLATFORM == 'darwin' ) browserProfilePath = './lib/browserProfiles/';
                                   if( osPLATFORM == 'linux' ) browserProfilePath = './lib/browserProfiles/';
                                   if( osPLATFORM == 'win32' ) browserProfilePath = '../../../../../lib/browserProfiles/';
+                                  if( !config_browser_profile ) browserProfilePath = '';
                                   log( 'browserProfilePath: ' + browserProfilePath + '\nconfig_browser_profile: ' + config_browser_profile );
 
 
