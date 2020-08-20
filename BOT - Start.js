@@ -4670,7 +4670,7 @@ collection.updateOne(query, newvalues, function(e, res) {
                               log('#l2jerberbeberbebkl4');
 
 
-                                            var execline = 'gnome-terminal -e ./BOT - Start.command'
+                                            var execline = 'gnome-terminal -- "./BOT - Start.command"'
                                             log('#9rtrntrtnrntnt4 execline: ' + execline)
 
 
@@ -4749,7 +4749,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-                                       var execline = 'open BOT - Start.command'
+                                       var execline = 'open "BOT - Start.command"'
                                        log('#97rthrthrh94 execline: ' + execline)
 
 
@@ -4802,7 +4802,7 @@ collection.updateOne(query, newvalues, function(e, res) {
                                                   log('#l2jkrtrthrhrhrh3jkl4')
 
 
-                                                                var execline = 'start cmd /k call BOT - Start.bat'
+                                                                var execline = 'start cmd /k call "BOT - Start.bat"'
                                                                 log('#97rthrthrh94 execline: ' + execline)
 
                                                                   exec(execline, function(e, stdo, stde) {
