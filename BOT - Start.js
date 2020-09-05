@@ -4135,6 +4135,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
+
     function MongoDB_EXPORT_single_item_url(single_item_ARRAY){
     log( 'ENTER MongoDB_EXPORT_single_item_url()' );
     //log( '\n\n#009 current single_item_ARRAY: ' + JSON.stringify(single_item_ARRAY, null, 4) );
@@ -4143,12 +4144,9 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-    var tempAR = ['t33n temp rng..'];
+    var tempAR = [...single_item_ARRAY];
     var tempAR2 = [];
 
-    for( var d of single_item_ARRAY ){
-    tempAR.push(d);
-    }
 
 
 
@@ -4158,18 +4156,24 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-
-
+    let firstLOOP = true;
     process.nextTick( looper1 );
     function looper1(){
     log( 'ENTER looper1()' );
 
-    tempAR.shift();
+    if(!firstLOOP) tempAR.shift();
+    else firstLOOP = false;
     log( 'tempAR.length: ' + tempAR.length );
 
 
       if( !tempAR[0] ){
       log( '!tempAR[0]' );
+
+
+
+
+
+
 
 
 
@@ -4193,15 +4197,21 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
+
+
+
+
+
       } //    if( !tempAR[0] ){
       else{
       log( '#424 tempAR[0]: ' + tempAR[0] );
 
        // CHECK IF ENTRY ALREADY EXIST IN DATABASE
       collection.find( {"url": tempAR[0]} ).toArray(function(e, docs) {
-        log( '#902349023490 done..docs:' + JSON.stringify(docs, null, 4) );
+      log( '#902349023490 done..docs:' + JSON.stringify(docs, null, 4) );
+
          if(!docs[0]){
-           log( 'MongoDB - Search value was not found..' );
+            log( 'MongoDB - Search value was not found..' );
             tempAR2.push(  {"url": tempAR[0], "used":0, "description": ""}  );
           } else log( 'Current item was already found in collection.. item: ' + tempAR[0] );
 
@@ -4264,7 +4274,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-    } // function MongoDB_EXPORT_single_item_url(){
+} // function MongoDB_EXPORT_single_item_url(){
 
 
 
