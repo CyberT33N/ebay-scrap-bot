@@ -350,7 +350,6 @@ const fs = require('fs'),
                                                            var args = [
                                                            windowSizeComplete,
 
-                                                           disableGPU,
                                                            '--disable-flash-3d',
                                                            '--no-sandbox',
                                                            // '--disable-setuid-sandbox',
