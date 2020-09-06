@@ -452,7 +452,7 @@ const fs = require('fs'),
 
 
                                                                                                                 log( '\n\nWe will check now your headless value..headlessVALUE: ' + headlessVALUE );
-                                                                                                                if(headlessVALUE == true) {
+                                                                                                                if(headlessVALUE) {
 
                                                                                                                        log('\n\nYou enabled headless..\n\n');
                                                                                                                        args.push('--disable-gpu');
@@ -1999,8 +1999,8 @@ process.nextTick( getimport );
 
                          // 200 items via page &_ipg=200
                          // change url here for pagination url methode ebay: &_pgn=2&_ipg=50
-                         if ( urlEdit !== null ){
-                          log('#2 - urlEdit !== null');
+                         if ( urlEdit ){
+                          log('#2 - urlEdit');
 
 
                                         if( paginationNumb >= 1 ) {
@@ -2008,13 +2008,13 @@ process.nextTick( getimport );
                                           log('\nCURRENT URL #1: ' + urlEdit);
                                        } //     if( paginationNumb >= 1 ) {
 
-                         } // if ( matcher !== null ){
+                         } // if ( urlEdit ){
                          else{
 
                                           t33n.url = t33n.url + '&_ipg=200' + '&_pgn=1';
                                           log( '\nCURRENT URL #0: ' + urlEdit );
 
-                         } // else from if ( matcher !== null ){
+                         } // else from  if ( urlEdit ){
 
 
 
@@ -2157,7 +2157,7 @@ process.nextTick( getimport );
           checkforSIGNIN = $(css).find('input[type="file"]').html();
           log( 'checkforSIGNIN:' + checkforSIGNIN + '\n\n' );
 
-          if(checkforSIGNIN == null){
+          if(!checkforSIGNIN){
 
               log( 'as it seems we are not sign-in.. this means we create now new account..' );
               changeIP_NEWACC = true;
