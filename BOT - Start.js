@@ -12,7 +12,7 @@
 ███████████████████████████████████████████████████████████████████████████████
 
 #SIGN-IN
-This Bot currently dont need any sign-i to ebay cause there is no bot protections for public users. All data is easy accesable.
+This Bot currently dont need any sign-in to ebay cause there is no bot protections for public users. All data is easy accesable.
 
 #IMPORTANT
 - currently dont resize the window via config.json - ebay used different classes for different windows sizes so we use hardcoded device size
@@ -55,20 +55,18 @@ This Bot currently dont need any sign-i to ebay cause there is no bot protection
                            ▀▀▀▀▀▀
    Here you can add all Objects/Arrays
    */
+
+
 var t33n = {};
 var looperVAL = 1;
 var scrappedSingleItemURLs_AR = [];
 
 //puppeter
-var client;
-var page;
+var client, page;
 
 var configOBJECT = {};
 var MongoDB;
-var changeIP_NEWACC = false;
-var changeIP = false;
-var browserStarted = false;
-var firstRUN = true;
+var changeIP_NEWACC = changeIP = browserStarted = firstRUN = false;
 
 
 
@@ -350,6 +348,7 @@ const fs = require('fs'),
                                                            var args = [
                                                            windowSizeComplete,
 
+                                                           disableGPU,
                                                            '--disable-flash-3d',
                                                            '--no-sandbox',
                                                            // '--disable-setuid-sandbox',
@@ -383,7 +382,6 @@ const fs = require('fs'),
                                   if( osPLATFORM == 'darwin' ) browserProfilePath = './lib/browserProfiles/';
                                   if( osPLATFORM == 'linux' ) browserProfilePath = './lib/browserProfiles/';
                                   if( osPLATFORM == 'win32' ) browserProfilePath = '../../../../../lib/browserProfiles/';
-                                  if( !config_browser_profile ) browserProfilePath = '';
                                   log( 'browserProfilePath: ' + browserProfilePath + '\nconfig_browser_profile: ' + config_browser_profile );
 
 
@@ -452,7 +450,7 @@ const fs = require('fs'),
 
 
                                                                                                                 log( '\n\nWe will check now your headless value..headlessVALUE: ' + headlessVALUE );
-                                                                                                                if(headlessVALUE) {
+                                                                                                                if(headlessVALUE == true) {
 
                                                                                                                        log('\n\nYou enabled headless..\n\n');
                                                                                                                        args.push('--disable-gpu');
@@ -635,10 +633,6 @@ const fs = require('fs'),
 
 
 
-
-
-
-
 async function proxyorsocksChoosed(proxy){
 log( 'ENTER proxyorsocksChoosed()' );
 
@@ -728,8 +722,7 @@ log( 'ENTER proxyorsocksChoosed()' );
 
 
 
-function checkSocksSpeed(){
-(async () => {
+function checkSocksSpeed(){(async () => {
 log( 'ENTER checkSocksSpeed()' );
 
 
@@ -1999,8 +1992,8 @@ process.nextTick( getimport );
 
                          // 200 items via page &_ipg=200
                          // change url here for pagination url methode ebay: &_pgn=2&_ipg=50
-                         if ( urlEdit ){
-                          log('#2 - urlEdit');
+                         if ( urlEdit !== null ){
+                          log('#2 - urlEdit !== null');
 
 
                                         if( paginationNumb >= 1 ) {
@@ -2008,13 +2001,13 @@ process.nextTick( getimport );
                                           log('\nCURRENT URL #1: ' + urlEdit);
                                        } //     if( paginationNumb >= 1 ) {
 
-                         } // if ( urlEdit ){
+                         } // if ( matcher !== null ){
                          else{
 
                                           t33n.url = t33n.url + '&_ipg=200' + '&_pgn=1';
                                           log( '\nCURRENT URL #0: ' + urlEdit );
 
-                         } // else from  if ( urlEdit ){
+                         } // else from if ( matcher !== null ){
 
 
 
@@ -2157,7 +2150,7 @@ process.nextTick( getimport );
           checkforSIGNIN = $(css).find('input[type="file"]').html();
           log( 'checkforSIGNIN:' + checkforSIGNIN + '\n\n' );
 
-          if(!checkforSIGNIN){
+          if(checkforSIGNIN == null){
 
               log( 'as it seems we are not sign-in.. this means we create now new account..' );
               changeIP_NEWACC = true;
@@ -4135,7 +4128,6 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-
     function MongoDB_EXPORT_single_item_url(single_item_ARRAY){
     log( 'ENTER MongoDB_EXPORT_single_item_url()' );
     //log( '\n\n#009 current single_item_ARRAY: ' + JSON.stringify(single_item_ARRAY, null, 4) );
@@ -4144,9 +4136,12 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-    var tempAR = [...single_item_ARRAY];
+    var tempAR = ['t33n temp rng..'];
     var tempAR2 = [];
 
+    for( var d of single_item_ARRAY ){
+    tempAR.push(d);
+    }
 
 
 
@@ -4156,24 +4151,18 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-    let firstLOOP = true;
+
+
     process.nextTick( looper1 );
     function looper1(){
     log( 'ENTER looper1()' );
 
-    if(!firstLOOP) tempAR.shift();
-    else firstLOOP = false;
+    tempAR.shift();
     log( 'tempAR.length: ' + tempAR.length );
 
 
       if( !tempAR[0] ){
       log( '!tempAR[0]' );
-
-
-
-
-
-
 
 
 
@@ -4197,21 +4186,15 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-
-
-
-
-
       } //    if( !tempAR[0] ){
       else{
       log( '#424 tempAR[0]: ' + tempAR[0] );
 
        // CHECK IF ENTRY ALREADY EXIST IN DATABASE
       collection.find( {"url": tempAR[0]} ).toArray(function(e, docs) {
-      log( '#902349023490 done..docs:' + JSON.stringify(docs, null, 4) );
-
+        log( '#902349023490 done..docs:' + JSON.stringify(docs, null, 4) );
          if(!docs[0]){
-            log( 'MongoDB - Search value was not found..' );
+           log( 'MongoDB - Search value was not found..' );
             tempAR2.push(  {"url": tempAR[0], "used":0, "description": ""}  );
           } else log( 'Current item was already found in collection.. item: ' + tempAR[0] );
 
@@ -4274,7 +4257,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-} // function MongoDB_EXPORT_single_item_url(){
+    } // function MongoDB_EXPORT_single_item_url(){
 
 
 
@@ -4680,7 +4663,7 @@ collection.updateOne(query, newvalues, function(e, res) {
                               log('#l2jerberbeberbebkl4');
 
 
-                                            var execline = 'gnome-terminal -- "./BOT - Start.command"'
+                                            var execline = 'gnome-terminal -e ./BOT - Start.command'
                                             log('#9rtrntrtnrntnt4 execline: ' + execline)
 
 
@@ -4759,7 +4742,7 @@ collection.updateOne(query, newvalues, function(e, res) {
 
 
 
-                                       var execline = 'open "BOT - Start.command"'
+                                       var execline = 'open BOT - Start.command'
                                        log('#97rthrthrh94 execline: ' + execline)
 
 
@@ -4812,7 +4795,7 @@ collection.updateOne(query, newvalues, function(e, res) {
                                                   log('#l2jkrtrthrhrhrh3jkl4')
 
 
-                                                                var execline = 'start cmd /k call "BOT - Start.bat"'
+                                                                var execline = 'start cmd /k call BOT - Start.bat'
                                                                 log('#97rthrthrh94 execline: ' + execline)
 
                                                                   exec(execline, function(e, stdo, stde) {
