@@ -1224,32 +1224,9 @@ log( 'ENTER checkSocksSpeed()' );
 
 
 
-// this is for the GUI
 async function screenlooper(){
 
-
-let screenshot = await page.screenshot({path: 'var/www/html/GUI/website/img/browser.png'});
-
-
-
-/*var execline = "sudo chown -R t33n '/home/t33n/Desktop/project'"
-log('#42 execline: ' + execline)
-
-
-       exec(execline, function(e, stdo, stde) {
-
-              if ( stde || e ) {
-                log( chalk.red.bold('❌ ERROR ') + "#rrtnrtntn45 - There was an error while try to exec: " + chalk.white.bold(execline) + "\nError:\n" + chalk.white.bold( e ) + "\nstderr:\n" + chalk.white.bold( stde ) );
-                return;
-              } //  if ( stderr || err ) {
-
-                log( "#3rtnrtnn5 - We successfully exec: " + chalk.white.bold(execline) + "\nstde:\n" + chalk.white.bold( stde ) );
-
-
-        }); // exec(execline, function(e, stdo, stde) {
-*/
-setTimeout(() => { process.nextTick(screenlooper) }, 1000);
-
+            screenshot = setInterval(async () => {   await page.screenshot({path: './GUI/website/img/browser.png'});   }, 1000);
 
 } //function screenlooper(){
 
