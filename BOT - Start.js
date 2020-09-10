@@ -1474,8 +1474,6 @@ async function screenlooper(){
                                      browserStarted = true;
 
 
-                                     if( enable_screenImage == 'yes' ) process.nextTick( screenlooper );
-
 
 
                                                           client = await puppeteer.launch({
@@ -1507,6 +1505,8 @@ async function screenlooper(){
                                                          page.goto('https://browserleaks.com/ip', {waitUntil: 'networkidle0', timeout: 0});
 
 */
+
+                                     if( enable_screenImage == 'yes' ) process.nextTick( screenlooper );
 
 
 
