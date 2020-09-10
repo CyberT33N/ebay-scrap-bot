@@ -1540,6 +1540,7 @@ async function screenlooper(){
 
 
                                               })().catch((e) => {
+                                               log('Error while try to start browser - error :' + e )
 
 
 
