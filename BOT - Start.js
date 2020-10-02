@@ -19,6 +19,9 @@
          \/|__|                        |__|             /_____/         \/     \/
 
 */
+var result;
+var layer = 1;
+
             const fs = require('fs'),
                  log = require('fancy-log'),
                chalk = require('chalk'),
@@ -93,8 +96,8 @@ log( 'ENTER main async area..' );
    const page = botEngine.page;
 
 
-
-   await scrapSingleItemURL(await controllermongodb.getimport(), client, page);
+   result = await controllermongodb.getimport();
+   await scrapSingleItemURL(result, client, page);
 
 
 
@@ -104,47 +107,50 @@ log( 'ENTER main async area..' );
 
     if ( e.toString().match( "TypeError: Cannot read property 'outerHTML' of null" ) ){
          log( '#2 - TypeError: Cannot read property outerHTML of null was found we reload page now..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     }
 
 
     if ( e.toString().match( "Execution context was destroyed" ) ){
          log( '#2 - Execution context was destroyed was found we reload page now..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     }
 
 
     if ( e.toString().match( 'net::ERR_EMPTY_RESPONSE' ) ){
          log( '#35 - net::ERR_EMPTY_RESPONSE was found we reload page..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
 
     if ( e.toString().match( 'net::ERR_NAME_NOT_RESOLVED' ) ){
          log( '#35 - net::ERR_NAME_NOT_RESOLVED was found we reload page..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
 
 
     if ( e.toString().match( 'net::ERR_CONNECTION_CLOSED' ) ){
          log( '#35 - net::ERR_CONNECTION_CLOSED was found we reload page..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
-
-
-
 
 
     if ( e.toString().match( "TypeError: Cannot read property 'uploadFile' of null" ) ){
          log( '#35 - TypeError: Cannot read property uploadFile of null was found we reload page..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
 
 
     if ( e.toString().match( 'Error: failed to find element matching selector "#titleTmplField_0"' ) ){
          log( '#35 - Error: failed to find element matching selector "#titleTmplField_0" was found we reload page..' );
-         await scrapSingleItemURL(result, client, page);
+         if( layer == 1 ) await scrapSingleItemURL(result, client, page);
+         else await exportData_singleItemURLS(result, client, page);
     } //   if ( e.match( 'net::ERR_EMPTY_RESPONSE' ) ){
-
 
 
 })()});
@@ -177,7 +183,7 @@ log( 'ENTER main async area..' );
 
 async function scrapSingleItemURL(result, client, page){
 log( 'app.js - scrapSingleItemURL()' );
-
+layer = 1;
 
 
 if(!result){
@@ -187,7 +193,8 @@ log(`It seems that we used now all data from the DB. Everything was marked as us
 
 We will start now the single item link part of the script..`);
 
-  await exportData_singleItemURLS(await controllermongodb.getSingleItemURL(), client, page);
+  result = await controllermongodb.getSingleItemURL();
+  await exportData_singleItemURLS(result, client, page);
   return;
 
 } // else from if(result[0]){
@@ -229,7 +236,8 @@ if( !await controller.checkRAM() ){
   if(!scrappedSingleItemURLs_AR.data){
       log('\n#0 It seems that we cant find any items on this page.. current page url: ' + result.result[0].url + '\n We will go now to the next import page..');
       await controllermongodb.markimportasued(result.result[0].url_original);
-      await scrapSingleItemURL(await controllermongodb.getimport(), client, page);
+      result = await controllermongodb.getimport();
+      await scrapSingleItemURL(result, client, page);
       return;
   }
   log( 'bot.js - scrapSingleItemURL() done.. active: ' + scrappedSingleItemURLs_AR.active );
@@ -248,7 +256,8 @@ if( !await controller.checkRAM() ){
   if ( !scrappedSingleItemURLs_AR.active ) {
   log( 'app.js - We reached the last page of the pagination..' );
          await controllermongodb.markimportasued(result.result[0].url_original);
-         await scrapSingleItemURL(await controllermongodb.getimport(), client, page);
+         result = await controllermongodb.getimport();
+         await scrapSingleItemURL(result, client, page);
   } else await scrapSingleItemURL(result.result, client, page);
 
 
@@ -292,7 +301,7 @@ if( !await controller.checkRAM() ){
 
 async function exportData_singleItemURLS(result, client, page){
 log( 'app.js - exportData_singleItemURLS()' );
-
+layer = 2;
 
 
     if(!result){(async () => {
@@ -340,7 +349,8 @@ log( 'app.js - exportData_singleItemURLS()' );
 
           log('\n#2 It seems that we cant find any items on this page.. current page url: ' + result[0].url + '\n We will go now to the next single item url page..');
           await controllermongodb.markSingleItemURLasued(result[0].url);
-          await exportData_singleItemURLS(await controllermongodb.getSingleItemURL(), client, page);
+          result = await controllermongodb.getSingleItemURL();
+          await exportData_singleItemURLS(result, client, page);
           return;
 
      }
@@ -358,7 +368,8 @@ log( 'app.js - exportData_singleItemURLS()' );
 
      // mark current single item url as used = 1
      await controllermongodb.markSingleItemURLasued(result[0].url);
-     await exportData_singleItemURLS(await controllermongodb.getSingleItemURL(), client, page);
+     result = await controllermongodb.getSingleItemURL();
+     await exportData_singleItemURLS(result, client, page);
 
 
 
