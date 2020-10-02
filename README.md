@@ -33,7 +33,7 @@ Language: **Multilanguage (currently only tested for EN and DE)**
 
 # *Dependencies*
 
-In order to run this bot you must download the [CyberT33n Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer). It will contain all needed dependencies and useful scripts for easy usage of this Bot!
+In order to run this bot you must download the [CyberT33n Core Engine](https://github.com/CyberT33N/scrapcore-mongodb-puppeteer). It contains all needed dependencies and useful scripts for easy usage for this Bot!
 <br />
 <br />
 After you have downloaded the CyberT33n Core Engine, download all files from this repository and **insert them with folders inside of the root directory** of your CyberT33n Core Engine where you can find:
