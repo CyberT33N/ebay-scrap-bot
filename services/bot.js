@@ -1005,7 +1005,7 @@ log( 'openLink()' );
                          await new Promise(resolve => setTimeout(resolve, 30000));
                     }
 
-
+              return;
           }; //   } catch(e) {
 
 
