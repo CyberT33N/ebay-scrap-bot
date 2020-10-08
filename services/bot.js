@@ -2,7 +2,7 @@
 console.log( 'bot.js - Current working directory: ' + __dirname );
 var confirmButton = false;
 var firstRUN = true;
-var paginationNumb = 0;
+
 
 
               const fs = require('fs'),
@@ -773,10 +773,10 @@ log( 'getPage()' );
 
        const resultOLD = JSON.parse(JSON.stringify(result));
 
-       const paginationNumbOld = paginationNumb;
-       paginationNumb++;
+       const paginationNumbOld = result[0].paginationNumb;
+       result[0].paginationNumb++;
        log('paginationNumbOld: ' + paginationNumbOld);
-       log('paginationNumb: ' + paginationNumb);
+       log('paginationNumb: ' + result[0].paginationNumb);
 
        const urlEdit = result[0].url.match(/[&][_]pgn[=](\d+)/gmi);
        log('urlEdit: ' + urlEdit);
@@ -788,7 +788,7 @@ log( 'getPage()' );
        // change url here for pagination url methode ebay: &_pgn=2&_ipg=50
        if ( urlEdit !== null ){
 
-           if( paginationNumb >= 1 ) result[0].url = result[0].url.replace( urlEdit, '&_pgn=' + paginationNumb );
+           if( result[0].paginationNumb >= 1 ) result[0].url = result[0].url.replace( urlEdit, '&_pgn=' + result[0].paginationNumb );
            return {"result":result,"resultOLD":resultOLD};
 
        } //    if ( urlEdit !== null ){
