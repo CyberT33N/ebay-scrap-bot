@@ -771,7 +771,7 @@ log( 'scrapVideoInfo()' );
 async function getPage(result){
 log( 'getPage()' );
 
-       const resultOLD = result;
+       const resultOLD = JSON.parse(JSON.stringify(result));
 
        const paginationNumbOld = paginationNumb;
        paginationNumb++;
