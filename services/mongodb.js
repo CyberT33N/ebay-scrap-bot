@@ -336,6 +336,7 @@ log( 'ENTER getimport()' );
       if(result[0]) {
       log( 'getimport() - result:' + JSON.stringify(result, null, 4) );
 
+         result[0].paginationNumb = 0;
          result[0].url_original = result[0].url;
          return result;
 
