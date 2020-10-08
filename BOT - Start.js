@@ -304,7 +304,7 @@ log( 'app.js - exportData_singleItemURLS()' );
 layer = 2;
 
 
-    if(!result){(async () => {
+    if(!result){
     log( `############ FINISH ##############
     Please wait we will close your browser now.. Please wait 10 seconds..`);
 
@@ -313,7 +313,7 @@ layer = 2;
            process.exit();
            return;
 
-    })().catch((e) => console.error('Error while try to end the current session' + e))};
+    }
     log( chalk.green.bold('✔ SUCCESS') + ' LISTING AREA - We successfully get the current import from MongoDB:\n' + chalk.white.bold( result[0].url ) );
 
 
