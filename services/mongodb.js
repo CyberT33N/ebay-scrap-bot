@@ -195,7 +195,7 @@ log('\n\nWe will mark now the following import url as used:' + url);
       const collection = MongoDB.collection('import');
 
       const r = await collection.updateOne(query, newvalues);
-      if(!r){
+      if( r.result.n == 0 ){
         log(chalk.red.bold('❌ ERROR') + ' #1 There was an error while try to mark the current page as used' + chalk.white.bold('error:\n') + e);
         return;
       }
@@ -236,7 +236,7 @@ log('\n\nWe will mark now the following single item url as used:' + url);
         const collection = MongoDB.collection('single_item_url');
 
         const r = await collection.updateOne(query, newvalues);
-        if(!r){
+        if( r.result.n == 0 ){
           log(chalk.red.bold('❌ ERROR') + ' There was an error while try to mark the current single item url as used' + chalk.white.bold('error:\n') + e);
           return;
         }
